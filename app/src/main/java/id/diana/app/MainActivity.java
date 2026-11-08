@@ -19,6 +19,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((App) getApplication()).startBersih();
+        try {
+            mulai();
+        } catch (Throwable e) {
+            App.tulis(getApplication(), App.CRASH_FILE,
+                    "crash di MainActivity.onCreate:\n"
+                            + android.util.Log.getStackTraceString(e));
+            throw e;
+        }
+    }
+
+    private void mulai() {
         web = new WebView(this);
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
@@ -55,17 +67,16 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
-    private static final String OFFLINE_HTML = """
-            <body style="font-family:sans-serif;background:#faf6ef;color:#3d2b1f;
-                     display:flex;align-items:center;justify-content:center;
-                     height:100vh;margin:0;text-align:center">
-              <div>
-                <h2>Koneksi ke server Diana putus</h2>
-                <p style="color:#8a7a68">Cek WiFi/quota, terus coba lagi.</p>
-                <button onclick="location.href='%s'"
-                        style="background:#6b4a2f;color:#faf6ef;border:0;
-                               border-radius:8px;padding:12px 28px;font-size:16px"
-                >Coba lagi</button>
-              </div>
-            </body>""".formatted(URL);
+    private static final String OFFLINE_HTML =
+            "<body style=\"font-family:sans-serif;background:#faf6ef;color:#3d2b1f;"
+            + "display:flex;align-items:center;justify-content:center;"
+            + "height:100vh;margin:0;text-align:center\">"
+            + "<div>"
+            + "<h2>Koneksi ke server Diana putus</h2>"
+            + "<p style=\"color:#8a7a68\">Cek WiFi/quota, terus coba lagi.</p>"
+            + "<button onclick=\"location.href='" + URL + "'\""
+            + "style=\"background:#6b4a2f;color:#faf6ef;border:0;"
+            + "border-radius:8px;padding:12px 28px;font-size:16px\">"
+            + "Coba lagi</button>"
+            + "</div></body>";
 }
