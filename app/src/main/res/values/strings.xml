@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Diana</string>
+    <color name="diana_bg">#6b4a2f</color>
+    <style name="Theme.Diana" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#6b4a2f</item>
+        <item name="android:windowBackground">#faf6ef</item>
+    </style>
+</resources>
